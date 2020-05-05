@@ -9,11 +9,25 @@ import {NoMatch} from './NoMatch';
 import {Layout} from './components/Layout';
 import {NavigationBar} from './components/NavigationBar';
 import {Jumbotron} from './components/Jumbotron';
+import PurveyorContainer from './components/PurveyorContainer';
 
 // import Button from 'react-bootstrap/Button';
 
 
+
 class App extends Component {
+
+  state = {
+    purveyors: []
+  }
+
+
+  componentDidMount = () => {
+    fetch("http://localhost:3003/api/purveyors")
+    .then(response => response.json())
+    .then(data => this.setState({ purveyors: data}))
+  }
+
   render(){
     return (
      <React.Fragment>
@@ -30,6 +44,7 @@ class App extends Component {
           </Switch>
         </Router>
        </Layout>
+       <PurveyorContainer purveyors={this.state.purveyors}/>
 
 
      </React.Fragment>
